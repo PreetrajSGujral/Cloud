@@ -1,0 +1,5 @@
+This folder contains two pyspark files:
+1 is for noting the time consumed in a normal brute force algorithm(given in short in this file, taken from the normal directory)
+2 is the pyspark code for the brute force approach
+
+Input values for both can be taken from the normal directory input files
