@@ -4,3 +4,38 @@ In this exercise we will use Hadoop to build a histogram of input data. Histogra
 𝑏𝑖𝑛𝑊𝑖𝑑𝑡ℎ = (𝑥MAX – 𝑥MIN)/𝑛𝑢𝑚𝑏𝑒𝑟𝑜𝑓𝑏𝑖𝑛𝑠
 𝑏𝑖𝑛𝑁𝑢𝑚𝑏𝑒𝑟 = (𝑥i − 𝑥MIN)/𝑏𝑖𝑛𝑊𝑖𝑑𝑡ℎ
 𝑏𝑖𝑛𝐶𝑒𝑛𝑡𝑒𝑟 = 𝑏𝑖𝑛𝑁𝑢𝑚𝑏𝑒𝑟 ∗ 𝑏𝑖𝑛𝑊𝑖𝑑𝑡ℎ + 𝑥MIN + 𝑏𝑖𝑛𝑊𝑖𝑑𝑡ℎ/2
+
+
+Question 1: Now read the provided code. What does the below part of the makefile do? What is the output mmm? What does mmm-map do? What does the for-loop in mmm-combiner do? Can the mmm-combiner code be replaced with the code in mmm-reducer? Why?
+
+ANSWER 1
+The above provided code of Makefile is used to declare the path to the Hadoop streaming utility which is used to create and run Map/Reduce jobs with any executable or script as the mapper and/or the reducer. In the tools directory is given the streaming utility. In the input section of the Makefile below, the files/scripts are mentioned as the mapper, combiner and reducer. After the scripts are run, the output is shown using the cat command.
+Mmm is the output file generated after performing the mmm function in the first part of the task.
+Using the map function of mmm, each value is read from the data file and mapped.
+The combiner for loop is used to update the values provided by the mapped values. For each iteration it will check the max and min values and update them.
+The combiner can be replaced with the reducer because they are performing the same functionality. Here the reducer is doing the same operations, which leaves no advantage of having a combiner. Therefore the combiner can be replaced. The only difference is the reducer printing the average whereas the combiner is giving the values of count and sum.
+
+
+MAP OUTPUT 
+
+max	1.684154
+mean	0.006059
+min	-2.138354
+
+HIST OUTPUT
+-2.010937	2
+-1.756103	3
+-1.501269	9
+-1.246435	46
+-0.991602	148
+-0.736768	339
+-0.481934	609
+-0.227100	894
+0.027734	1000
+0.282568	935
+0.537402	571
+0.792235	279
+1.047069	125
+1.301903	30
+1.556737	9
+1.811571	1
