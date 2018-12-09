@@ -1,0 +1,6 @@
+Histogram of Data in Python
+In this exercise we will use Hadoop to build a histogram of input data. Histogram is a graphical representation of frequencies of samples. The provided example reads an input and finds the min, max, and mean of the input first. It then uses the below equations to tag each input with a bin in the histogram.
+
+𝑏𝑖𝑛𝑊𝑖𝑑𝑡ℎ = (𝑥MAX – 𝑥MIN)/𝑛𝑢𝑚𝑏𝑒𝑟𝑜𝑓𝑏𝑖𝑛𝑠
+𝑏𝑖𝑛𝑁𝑢𝑚𝑏𝑒𝑟 = (𝑥i − 𝑥MIN)/𝑏𝑖𝑛𝑊𝑖𝑑𝑡ℎ
+𝑏𝑖𝑛𝐶𝑒𝑛𝑡𝑒𝑟 = 𝑏𝑖𝑛𝑁𝑢𝑚𝑏𝑒𝑟 ∗ 𝑏𝑖𝑛𝑊𝑖𝑑𝑡ℎ + 𝑥MIN + 𝑏𝑖𝑛𝑊𝑖𝑑𝑡ℎ/2
