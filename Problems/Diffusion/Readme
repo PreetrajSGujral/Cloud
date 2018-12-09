@@ -1,0 +1,11 @@
+Question:
+In this assignment you will write a code that computes a 1D diffusion problem using a finite difference (structured grid) approximation. Read the first three sections of the following link:
+http://hplgit.github.io/num-methods-for-PDEs/doc/pub/diffu/sphinx/._main_diffu001.html
+A brief overview of the document is given in the below where a differential equation is approximated using a 1-point finite-difference problem:
+Now solve the below diffusion problem using the finite-difference (stencil) approximation illustrated in the previous page. The boundary points x0 and 
+x99 are located in points -9.5 and +10.5 in the x-axis, n represents the number of time-steps the algorithm runs to convergence, number of cells refers to the number of data points between boundaries, and i shows the point being operated on.
+
+Items to do:
+1. Print your code.
+2. Show the output in which the final values are printed for each point in the x-axis (you have 100 data points!).
+3. Plot the value of the third data point (i=3) for number of steps = 2, 4, 10, 20, 100, 200. Is there a pattern to the changes with increasing number of steps? Why?
