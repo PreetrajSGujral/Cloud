@@ -9,3 +9,18 @@ Items to do:
 1. Print your code.
 2. Show the output in which the final values are printed for each point in the x-axis (you have 100 data points!).
 3. Plot the value of the third data point (i=3) for number of steps = 2, 4, 10, 20, 100, 200. Is there a pattern to the changes with increasing number of steps? Why?
+
+
+ANSWER 
+
+A. CODE UPLOADED
+B. OUTPUT SCREENSHOT TAKEN
+C. 
+Values of i=3 
+STEP - VALUE
+2    - 0.00849115295662077  
+4    - 0.008733296440478419
+10   - 0.009410884385984218
+20   - 0.01045876160670496
+100  - 0.01849699174923968
+200  - 0.0278798489233611
