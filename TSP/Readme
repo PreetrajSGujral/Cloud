@@ -1,0 +1,6 @@
+Trying to run TSP using pyspark for different algorithms:
+
+1. Brute Force
+2. Greedy approach
+3. Held Karp Dynamic Programming approach
+4. Christofides Algorithm
