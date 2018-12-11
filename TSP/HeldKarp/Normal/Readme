@@ -1,0 +1,8 @@
+Normal execution of held-karp algorithm
+
+To run:
+
+python3 held-karp.py INT
+
+
+where INT is the integer size of the matrix you want to create.
