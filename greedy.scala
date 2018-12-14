@@ -47,9 +47,7 @@ val myEdges = sc.makeRDD(Array(Edge(1L, 2L, 7.0), Edge(1L, 4L, 5.0),
  Edge(5L, 6L, 8.0), Edge(5L, 7L, 9.0), Edge(6L, 7L, 11.0)))
 
 val myGraph = Graph(myVertices, myEdges)
-greedy(myGraph,1L).triplets.filter(_.attr._2).map(et=>(et.srcId, et.dstId))
- .collect
-val res1: Array[(VertexId,VertexId)] = Array((1,4), (2,3), (3,5), (4,6),(5,6))
+println(greedy(myGraph,1L).triplets.filter(_.attr._2).map(et=>(et.srcId, et.dstId)).collect().mkString("\n"))
 
 }
 }
