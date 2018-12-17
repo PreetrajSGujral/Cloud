@@ -14,13 +14,9 @@ class SGraph[T] {
   var g:GraphMap = Map()
 def DFS(start: Vertex): List[Vertex] = {
 
-    def DFS0(v: Vertex, visited: List[Vertex]): List[Vertex] = {
-      if (visited.contains(v))
-        visited
-      else {
+    def DFS0(v: Vertex, visited: List[Vertex]): List[Vertex] = {     
         val neighbours:List[Vertex] = g(v) filterNot visited.contains
         neighbours.foldLeft(v :: visited)((b,a) => DFS0(a,b))
-      }
     }
     DFS0(start,List()).reverse 
   }
@@ -68,6 +64,7 @@ val start1= System.currentTimeMillis
 
 val edges=Array(Edge(1,2,14.0), Edge(1,3,07.0), Edge(1,4,02.0), Edge(1,5,12.0), Edge(1,6,04.0), Edge(1,7,09.0), Edge(1,8,06.0), Edge(2,3,10.0), Edge(2,4,14.0), Edge(2,5,11.0), Edge(2,6,10.0), Edge(2,7,06.0), Edge(2,8,08.0), Edge(3,4,10.0), Edge(3,5,07.0), Edge(3,6,05.0), Edge(3,7,09.0), Edge(3,8,12.0), Edge(4,5,13.0), Edge(4,6,07.0), Edge(4,7,03.0), Edge(4,8,07.0), Edge(5,6,04.0), Edge(5,7,03.0), Edge(5,8,10.0), Edge(6,7,11.0), Edge(6,8,12.0), Edge(7,8,04.0))
 
+
 val myVertices = sc.makeRDD(Array((1L,"1"), (2L,"2"), (3L,"3"), (4L,"4"), (5L,"5"), (6L,"6"), (7L,"7"), (8L,"8")))
 val myEdges = sc.makeRDD(edges)
 
@@ -83,10 +80,37 @@ val j=0
 for(i <- 0 to 6)
 {
 	val x= mynodes(i).toString()			
-	val vertex=x(1).toInt-48			
+	println(x)
+
+	var vertex1=""
+        var edge1=""
+        var comma=0
+        if(x.charAt(2)==',')
+        {
+            vertex1=x.substring(1,2)
+            comma= 2
+            if(x.length()==5)
+            {   
+                edge1=x.substring(3,4)
+            }
+            else
+                edge1=x.substring(3,5)
+        }
+        else 
+        {
+            comma=3
+            vertex1=x.substring(1,3)
+            if(x.length()==6)
+                edge1=x.substring(4,5)
+            else
+                edge1=x.substring(4,6)
+        }
+	val edge=edge1.toInt
+	val vertex=vertex1.toInt
+
 	print(x+" and "+vertex)				
 	val list= newEdge(vertex-1)			
-	val edge= (x(3).toInt-48)			
+
 	print("   edge: "+edge)				
 	
 	val list1= edge::list				
@@ -104,12 +128,12 @@ for(j <-0 to 6)
 	println(newEdge(j))
 }
 
-
+val start2= System.currentTimeMillis
 var sGraph= new SGraph[Int]
 sGraph.g = Map(1 -> newEdge(0), 2-> newEdge(1), 3-> newEdge(2), 4-> newEdge(3),5 -> newEdge(4), 6-> newEdge(5), 7-> newEdge(6), 8-> List())
 print(sGraph.DFS(1))
 
-val stop=System.currentTimeMillis
-println("Total time: "+(stop1-start1))
+val stop2=System.currentTimeMillis
+println("Total time: "+(stop1-start1+stop2-start2))
 }
 }
