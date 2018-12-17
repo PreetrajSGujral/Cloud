@@ -3,9 +3,28 @@ import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 import java.util.Calendar
 
+
+
+
 object PageRank{
 
+class SGraph[T] {
+  type Vertex = T
+  type GraphMap = Map[Vertex,List[Vertex]]
+  var g:GraphMap = Map()
+def DFS(start: Vertex): List[Vertex] = {
 
+    def DFS0(v: Vertex, visited: List[Vertex]): List[Vertex] = {
+      if (visited.contains(v))
+        visited
+      else {
+        val neighbours:List[Vertex] = g(v) filterNot visited.contains
+        neighbours.foldLeft(v :: visited)((b,a) => DFS0(a,b))
+      }
+    }
+    DFS0(start,List()).reverse 
+  }
+}
 def minSpanningTree[VD:scala.reflect.ClassTag](g:Graph[VD,Double]) = {
 var g2 = g.mapEdges(e => (e.attr,false))
 for (i <- 1L to g.vertices.count-1) {
@@ -45,7 +64,7 @@ g2.subgraph(_.attr._2).mapEdges(_.attr._1)
 def main(args: Array[String]) {
 val conf = new SparkConf().setAppName("Simple Application")
 val sc = new SparkContext(conf)
-val start= System.currentTimeMillis
+val start1= System.currentTimeMillis
 
 val edges=Array(Edge(1,2,14.0), Edge(1,3,07.0), Edge(1,4,02.0), Edge(1,5,12.0), Edge(1,6,04.0), Edge(1,7,09.0), Edge(1,8,06.0), Edge(2,3,10.0), Edge(2,4,14.0), Edge(2,5,11.0), Edge(2,6,10.0), Edge(2,7,06.0), Edge(2,8,08.0), Edge(3,4,10.0), Edge(3,5,07.0), Edge(3,6,05.0), Edge(3,7,09.0), Edge(3,8,12.0), Edge(4,5,13.0), Edge(4,6,07.0), Edge(4,7,03.0), Edge(4,8,07.0), Edge(5,6,04.0), Edge(5,7,03.0), Edge(5,8,10.0), Edge(6,7,11.0), Edge(6,8,12.0), Edge(7,8,04.0))
 
@@ -54,33 +73,43 @@ val myEdges = sc.makeRDD(edges)
 
 val myGraph = Graph(myVertices, myEdges)
 val mynodes=minSpanningTree(myGraph).triplets.map(et =>(et.srcAttr,et.dstAttr)).collect()
-println(mynodes)
+val stop1= System.currentTimeMillis
 
-var newEdge=Array(Edge(1,1,02.0))
+var newEdge=Array(List(1), List(2), List(3), List(4), List(5), List(6), List(7), List(8))
 val i=0
+val j=0
+
+
 for(i <- 0 to 6)
 {
-	val x= mynodes(i).toString()
-	val y=x.substring(0,4)
+	val x= mynodes(i).toString()			
+	val vertex=x(1).toInt-48			
+	print(x+" and "+vertex)				
+	val list= newEdge(vertex-1)			
+	val edge= (x(3).toInt-48)			
+	print("   edge: "+edge)				
+	
+	val list1= edge::list				
+	newEdge(vertex-1)=list1				
+	print("list1 updated: "+newEdge(vertex-1))	
 
-	var a=0
-	for( a<- edges)
-	{
-
-		val p=a.toString().substring(4,8)
-		if(p==y)
-		{
-    			println("	String is: "+p+"  edge given is: "+y)
-    			val edge= Edge(y(1).toInt, y(3).toInt, a.toString().substring(9,12).toDouble)  	
-    			newEdge +:= edge
-		}
-	}
+	val list4= newEdge(edge-1)
+	val list2 =vertex:: list4
+	newEdge(edge-1)= list2
+	println("list2 updated: "+newEdge(edge-1))
 }
-println("size of array of edges is: "+newEdge.size)
-//convert edges to strings..... if the mst contains that edge, create a new edge array and add that edge there 
+for(j <-0 to 6)
+{
+	newEdge(j)=newEdge(j).filter(_!=(j+1))
+	println(newEdge(j))
+}
 
-println("")
+
+var sGraph= new SGraph[Int]
+sGraph.g = Map(1 -> newEdge(0), 2-> newEdge(1), 3-> newEdge(2), 4-> newEdge(3),5 -> newEdge(4), 6-> newEdge(5), 7-> newEdge(6), 8-> List())
+print(sGraph.DFS(1))
+
 val stop=System.currentTimeMillis
-println("Total time: "+(stop-start))
+println("Total time: "+(stop1-start1))
 }
 }
