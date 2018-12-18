@@ -2,12 +2,7 @@ import org.apache.spark.graphx._
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 import java.util.Calendar
-
-
-
-
 object PageRank{
-
 class SGraph[T] {
   type Vertex = T
   type GraphMap = Map[Vertex,List[Vertex]]
@@ -55,15 +50,12 @@ g2 = g2.mapTriplets(et =>
 g2.subgraph(_.attr._2).mapEdges(_.attr._1)
 }
 
-
-
 def main(args: Array[String]) {
 val conf = new SparkConf().setAppName("Simple Application")
 val sc = new SparkContext(conf)
 val start1= System.currentTimeMillis
 
 val edges=Array(Edge(1,2,14.0), Edge(1,3,07.0), Edge(1,4,02.0), Edge(1,5,12.0), Edge(1,6,04.0), Edge(1,7,09.0), Edge(1,8,06.0), Edge(2,3,10.0), Edge(2,4,14.0), Edge(2,5,11.0), Edge(2,6,10.0), Edge(2,7,06.0), Edge(2,8,08.0), Edge(3,4,10.0), Edge(3,5,07.0), Edge(3,6,05.0), Edge(3,7,09.0), Edge(3,8,12.0), Edge(4,5,13.0), Edge(4,6,07.0), Edge(4,7,03.0), Edge(4,8,07.0), Edge(5,6,04.0), Edge(5,7,03.0), Edge(5,8,10.0), Edge(6,7,11.0), Edge(6,8,12.0), Edge(7,8,04.0))
-
 
 val myVertices = sc.makeRDD(Array((1L,"1"), (2L,"2"), (3L,"3"), (4L,"4"), (5L,"5"), (6L,"6"), (7L,"7"), (8L,"8")))
 val myEdges = sc.makeRDD(edges)
@@ -75,7 +67,6 @@ val stop1= System.currentTimeMillis
 var newEdge=Array(List(1), List(2), List(3), List(4), List(5), List(6), List(7), List(8))
 val i=0
 val j=0
-
 
 for(i <- 0 to 6)
 {
